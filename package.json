@@ -1,13 +1,19 @@
 {
   "name": "vite-plugin-arithmetic",
   "version": "1.0.0",
-  "description": "",
+  "description": "A vite plugin as a solution for the problem in the calculation precision of the floating points numbers.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "type.d.ts",
-  "directories": {
-    "test": "test"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JachinZou/vite-plugin-arithmetic"
   },
+  "files": [
+    "dist/",
+    "README.md",
+    "type.d.ts"
+  ],
   "scripts": {
     "build": "vite build"
   },
