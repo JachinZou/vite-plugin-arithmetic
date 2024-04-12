@@ -9,10 +9,14 @@ npm install vite-plugin-arithmetic --save-dev
 
 #### vite.config.js
 ```javascript
+import arithmetic from 'vite-plugin-arithmetic'
+
 {
     // other config ....
     plugins: [
-      plugin()
+      vue(), // if vue plugin exist, it should be front of arithmetic
+      // vuejsx(), // maybe you should use this, also should be fron of arithmetic
+      arithmetic(),  // this plugin should behind of vue plugin, like vue, vuejsx etc.
     ],
     // other config ....
   }
