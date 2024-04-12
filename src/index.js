@@ -16,13 +16,10 @@ const methods = {
   '/': `$$div_${random}`,
 }
 
-function transformCode (code) {
+function transformCode (code, options) {
   const usedMethods = new Set()
   const ast = this.parse(code, { comment: true })
-  simple(ast, {
-    // Literal(node) {
-    //   console.log('node',node)
-    // },
+  const walkOption = {
     BinaryExpression(node) {
       const funName = methods[node.operator]
       if (!funName) return
@@ -33,7 +30,9 @@ function transformCode (code) {
       delete node.left
       delete node.right
     },
-    CallExpression(node) {
+  }
+  if (options.consoleCompare) {
+    walkOption.CallExpression = (node) => {
       const isConsolLog = node.callee.object?.name === 'console' && node.callee.property?.name === 'log'
       const isLogExpression = node.arguments.some(n => {
         return n.type === 'CallExpression' && n.operator
@@ -46,7 +45,8 @@ function transformCode (code) {
         })
       }
     }
-  })
+  }
+  simple(ast, walkOption)
   const usedMehtodsList = Array.from(usedMethods).map(func => {
     return `${func.match(/[a-z]+/)[0]} as ${func}`
   })
@@ -54,7 +54,7 @@ function transformCode (code) {
   return resultCode
 }
 
-export default function (options) {
+export default function (options = {}) {
   const calcContent = readFileSync(resolve(__dirname, `calc.mjs`), 'utf-8')
   return {
     name: 'vite-plugin-arithmetic',
@@ -75,7 +75,7 @@ export default function (options) {
       if (id === resolvedVirtualModuleId || (!isScript && !isVue) || isNodeModules) {
         return
       }
-      return transformCode.call(this, code)
+      return transformCode.call(this, code, options)
     }
   }
 }

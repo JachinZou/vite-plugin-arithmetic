@@ -1,6 +1,8 @@
 import { Plugin } from 'vite';
 
-export interface VitePluginOption {}
+export interface VitePluginOption {
+  consoleCompare?: boolean
+}
 
 declare function export_default(options?: VitePluginOption): Plugin;
 

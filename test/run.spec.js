@@ -1,10 +1,6 @@
-import { resolve, dirname, basename, extname } from 'path'
-import { fileURLToPath } from 'url'
-import { build } from 'vite'
-import plugin from '../src/index.js'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const { resolve, basename, extname } = require('path')
+const { build } = require('vite')
+const plugin = require('../dist/index.js')
 
 async function run (path) {
   const entry = resolve(__dirname, path)
@@ -12,7 +8,7 @@ async function run (path) {
   return await build({
     root: __dirname,
     plugins: [
-      plugin()
+      plugin({consoleCompare: true})
     ],
     build: {
       write: false,
@@ -27,6 +23,7 @@ async function run (path) {
   })
 }
 
-const dd = await run('basic/index.js')
+run('basic/index.js').then(dd => {
+  console.log(dd[0].output[0].code, '结束')
+})
 
-console.log(dd[0].output[0].code, '结束')
