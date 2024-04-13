@@ -14,6 +14,10 @@ const methods = {
   '-': `$$sub_${random}`,
   '*': `$$mul_${random}`,
   '/': `$$div_${random}`,
+  '+=': `$$add_${random}`,
+  '-=': `$$sub_${random}`,
+  '*=': `$$mul_${random}`,
+  '/=': `$$div_${random}`,
 }
 
 function transformCode (code, options) {
@@ -30,6 +34,19 @@ function transformCode (code, options) {
       delete node.left
       delete node.right
     },
+    AssignmentExpression(node) {
+      const funName = methods[node.operator]
+      if (!funName) return
+      usedMethods.add(funName)
+      const right = node.right
+      node.right = {
+        type: 'CallExpression',
+        operator: node.operator,  // 标记
+        callee: { type: 'Identifier', name: funName },
+        arguments: [ node.left, right ]
+      }
+      node.operator = '='
+    }
   }
   if (options.consoleCompare) {
     walkOption.CallExpression = (node) => {
