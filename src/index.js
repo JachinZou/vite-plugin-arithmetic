@@ -2,7 +2,7 @@ import { resolve, dirname, extname } from 'path'
 import { fileURLToPath } from 'url'
 import { readFileSync } from 'fs'
 import { simple } from 'acorn-walk'
-import { generate } from 'escodegen'
+import { generate } from '@javascript-obfuscator/escodegen'
 
 const virtualModuleId = 'virtual:calc'
 const resolvedVirtualModuleId = '\0' + virtualModuleId

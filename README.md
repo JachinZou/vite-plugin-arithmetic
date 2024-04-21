@@ -47,5 +47,10 @@ var a = $$sub_87676230(0.8, 0.2);
 //0.3
 //0.6
 ```
-`Note: it doesn't work with eval() And just support (+ - * \ += -= *= /=), if the members of the operator is not Number type, it will return the result as it should be`
+`Note: it doesn't work with eval() And just support (+ - * / += -= *= /=), if the members of the operator is not Number type, it will return the result as it should be`
+
+TODO:
+resolved by https://www.npmjs.com/package/@javascript-obfuscator/escodegen
+PropertyDefinition
+https://github.com/estools/escodegen/issues/443
 
