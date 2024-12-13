@@ -67,7 +67,8 @@ function transformCode (code, options) {
   const usedMehtodsList = Array.from(usedMethods).map(func => {
     return `${func.match(/[a-z]+/)[0]} as ${func}`
   })
-  const resultCode = `import { ${usedMehtodsList.join(', ')} } from '${virtualModuleId}'\n${generate(ast, { format: { quotes: 'double', indent: { style: '  ' } } })}`
+  const importStr = usedMehtodsList.length ? `import { ${usedMehtodsList.join(', ')} } from '${virtualModuleId}'` : ''
+  const resultCode = `${importStr}\n${generate(ast, { format: { quotes: 'double', indent: { style: '  ' } } })}`
   return resultCode
 }
 
