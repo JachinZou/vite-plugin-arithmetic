@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-arithmetic",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A vite plugin as a solution for the problem in the calculation precision of the floating points numbers.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
