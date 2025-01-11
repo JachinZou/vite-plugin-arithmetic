@@ -77,7 +77,7 @@ export function mul (left, right) {
 export function div (left, right) {
   if (!isNumber(left) || !isNumber(right)) {
     return left / right
-  } else if (Number.isInteger(left) || Number.isInteger(right)) {
+  } else if (Number.isInteger(left) && Number.isInteger(right)) {
     return left / right
   } else {
     const {
